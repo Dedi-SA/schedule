@@ -7,24 +7,123 @@
     <link rel="stylesheet" type="text/css" href="./CSS/jadwal-id.css">
 </head>
 <body>
-    <h1>Jadwal Februari 2021</h1>
-    <div class="wadahBulan">
-    
-        <div class="wadahTanggal">
+    <script>
+        const namaHari = ['Ahad', 'Senin', 'Selasa', 'Rabu', 'Kamis', "Jum'at", 'Sabtu',],
+              namaBulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember',],
+              status = ['Belum dikerjakan', 'Selesai', 'Tertunda', 'Mengulang', 'Batal'],
+              KEGIATAN = [
+                  // Tanggal 25
+                  [
+                      ['Menulis catatan', 3, '1 Jam (19.00 - 20.00 WIB)'],      // Kegiatan 1
+                  ],
+                  // Tanggal 26
+                  [
+                      ['Menata berkas', 1, '30 menit (06.00 - 06.30 WIB)'],     // Kegiatan 1
+                      ['Belajar JavaScript', 0, '4 Jam (07.00 - 11.00 WIB)'],   // Kegiatan 2
+                      ['Foto copy', 4, '40 menit (12.30 - 13.10 WIB)'],         // Kegiatan 3
+                      ['Belajar JavaScript', 0, '1 Jam (13.40 - 14.40 WIB)'],   // Kegiatan 4
+                  ],
+                  // Tanggal 27
+                  [
+                      ['Membeli beras', 0, '15 menit (05.00 - 05.15 WIB)'],     // Kegiatan 1
+                      ['Mengecek E-mail', 0, '10 menit (05.20 - 05.30 WIB)'],   // Kegiatan 2
+                      ['Membersihkan WC', 0, '2 Jam (05.55 - 07.55 WIB)'],      // Kegiatan 3
+                  ],
+                  // Tanggal 28
+                  [
+                      ['Ke rumah teman', 0, '6 Jam (07.00 - 13.00 WIB)'],       // Kegiatan 1
+                      ['Membersihkan kamar', 0, '1 Jam (13.20 - 14.20 WIB)'],   // Kegiatan 2
+                  ],
+              ];
         
-            <div class="judulKegiatan">                 <!-- Judul kegiatan -->
-                <span class="wadahTeksTanggal">14 Februari | Ahad</span><button onclick="bukatutup(0);">Tampilkan</button><br>
-            </div>
+        let tahun = 2021, // Tahun yang akan ditampilkan
+            bulan = 2, // Variabel 'bulan' harus berupa angka (1 - 12)
+            tanggalMulai = 25,
+            tanggalAkhir = 28,
+            hari = 7, // Variabel 'hari' harus berupa angka (1 - 7) dan Sabtu sebagai hari ke-7
             
-            <div class="isiKegiatan" id="kegiatan0">    <!-- Isi kegiatan -->
-                <div class="detailKegiatan">
-                    <span class="nomor">1</span><span class="jenisDetail">Status</span>:<span class="variabelDetail">SELESAI</span><br>
-                    <span class="tabNomor"></span><span class="jenisDetail">Estimasi waktu</span>:<span class="variabelDetail">4 Jam</span><br>
-                </div>
-            </div>
+            bukaTutup = function (ID) {
+                let tampilan = document.getElementById('kegiatan' + ID).style,
+                    tombolTampilan = document.getElementById('tombol' + ID);
+                if (tampilan.display == 'none') {
+                    tampilan.display = 'block';
+                    tombolTampilan.innerHTML = 'Sembunyikan';
+                }
+                else {
+                    tampilan.display = 'none';
+                    tombolTampilan.innerHTML = 'Tampilkan';
+                }
+            },
             
-        </div>  <!-- Akhir 'wadahTanggal' -->
-    
-    </div>  <!-- Akhir 'wadahBulan' -->
+            cetakIsiKegiatan = function ($tanggal) {
+                let aksesArray = $tanggal - tanggalMulai;
+                for (let n = 0; n < KEGIATAN[aksesArray].length; n++) {
+                    document.write('<div class="detailKegiatan">');
+                    document.write('<span class="nomor" title="Kegiatan ' + (n+1) + ' | ' + namaHari[hari-1] + ', ' + $tanggal + ' ' + namaBulan[bulan-1] + ' ' + tahun + '">' + (n+1) + '</span><h3>' + KEGIATAN[aksesArray][n][0] + '</h3><br>');
+                    document.write('<span class="tabNomor"></span><span class="jenisDetail">Status</span>:<span class="variabelDetail">' + status[KEGIATAN[aksesArray][n][1]] + '</span><br>');
+                    document.write('<span class="tabNomor"></span><span class="jenisDetail">Estimasi waktu</span>:<span class="variabelDetail">' + KEGIATAN[aksesArray][n][2] + '</span><br>');
+                    document.write('</div>');
+                }
+            },
+            
+            cetakWadahTanggal = function () {
+                for(var i = tanggalMulai; i <= tanggalAkhir; i++) {
+                    document.write('<div class="wadahTanggal">');
+                    
+                    document.write('<div class="judulKegiatan">');
+                    document.write('<span class="wadahTeksTanggal">' + i + ' ' + namaBulan[bulan-1] + ' | ' + namaHari[hari-1] + '</span><button onclick="bukaTutup(' + i + ');" id="tombol' + i + '">Tampilkan</button><br>');
+                    document.write('</div>');
+                    
+                    document.write('<div class="isiKegiatan" id="kegiatan' + i + '" style="display: none;">');
+                    cetakIsiKegiatan(i);
+                    document.write('</div>');
+                    
+                    document.write('</div>');
+                    
+                    hari++;
+                    if (hari > namaHari.length){
+                        hari = 1;
+                    }
+                }
+            },
+            
+            cetakBulan = function () {
+                document.write('<div class="wadahBulan">');
+                cetakWadahTanggal();
+                document.write('</div>');
+            },
+            
+            cekKelengakapan = function () {
+                if (namaHari.length == 7 && namaBulan.length == 12 && status.length == 5) {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            };
+        
+        if (cekKelengakapan()) {
+            document.write('<h1>Jadwal ' + namaBulan[bulan-1] + ' ' + tahun + '</h1>');
+            document.write('* <i>Tampilan sementara</i><br><br>');
+            cetakBulan();
+            document.write('<br><br><div class="bawah"></div>');
+        }
+        else {
+            document.write('<h1>Terjadi Kesalahan</h1>');
+        }
+        
+    </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
