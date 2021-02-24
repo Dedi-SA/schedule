@@ -1,5 +1,5 @@
 /*
-    Version  : 2
+    Version  : 2.1
     Language : Bahasa Indonesia
 */
 
@@ -33,6 +33,7 @@ button {
 }
 .wadahTeksTanggal {
     display: inline-block;
+    width: 200px;
     font-weight: bold;
     font-size: 20px;
     color: black;
@@ -46,7 +47,7 @@ button {
 .detailKegiatan {
     margin: 0 0 15px 0;
     border-left: 4px solid grey;
-    transition: border-left 1s, background-color 1s;
+    /* transition: border-left 1s, background-color 1s; */
     padding-left: 10px;
         background-color: lightgreen;   /* sementara */
 }
