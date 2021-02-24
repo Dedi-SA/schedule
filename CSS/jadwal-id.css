@@ -1,11 +1,16 @@
 /*
-    Version  : 1.2
+    Version  : 2
     Language : Bahasa Indonesia
 */
 
 h1 {
     text-align: center;
     margin-bottom: 50px;
+}
+.detailKegiatan h3 {
+    display: inline-block;
+    margin: 0;
+        background-color: yellow;   /* sementara */
 }
 button {
     background-color: blue;
