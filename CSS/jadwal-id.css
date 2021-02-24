@@ -1,5 +1,5 @@
 /*
-    Version  : 1
+    Version  : 1.2
     Language : Bahasa Indonesia
 */
 
@@ -75,9 +75,12 @@ button {
     font-weight: bold;
         background-color: violet;       /* sementara */
 }
-.variabelDetail{
+.variabelDetail {
     display: inline-block;
     font-weight: bold;
     margin: 0 0 0 10px;
         background-color: orangered;    /* sementara */
-]
+}
+.bawah {
+    margin: 0 0 60% 0;
+}
