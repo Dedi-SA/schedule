@@ -1,5 +1,5 @@
 /*
-    Version  : 2.1
+    Version  : 4
     Language : Bahasa Indonesia
 */
 
@@ -9,8 +9,7 @@ h1 {
 }
 .detailKegiatan h3 {
     display: inline-block;
-    margin: 0;
-        background-color: yellow;   /* sementara */
+    margin: 0 10px 0 0;
 }
 button {
     background-color: blue;
@@ -25,41 +24,44 @@ button {
     margin-left: 15px;
 }
 .wadahTanggal {
-    margin-bottom: 40px;
-        background-color: aqua;     /* sementara */
+    margin: 0 0 40px 0;
 }
 .judulKegiatan {
-    margin-bottom: 15px;
+    margin: 0 0 5px 0;
 }
 .wadahTeksTanggal {
     display: inline-block;
-    width: 200px;
+    width: 210px;
     font-weight: bold;
     font-size: 20px;
-    color: black;
-    margin-right: 20px;
-        background-color: chartreuse;   /* sementara */
+    text-align: center;
+    color: white;
+    margin: 0 20px 0 0;
+    cursor: default;
+    border-radius: 4px;
+    background-color: black;
+}
+.totalHarian {
+    margin: 0 0 15px 20px;
 }
 .isiKegiatan {
-    margin-left: 40px;
-        background-color: yellow;       /* sementara */
+    margin: 0 0 0 40px;
 }
 .detailKegiatan {
     margin: 0 0 15px 0;
     border-left: 4px solid grey;
-    /* transition: border-left 1s, background-color 1s; */
     padding-left: 10px;
-        background-color: lightgreen;   /* sementara */
+    background-color: rgb(235, 235, 235);
 }
 .detailKegiatan:hover {
     border-left: 4px solid black;
-    background-color: rgb(220, 220, 220);
-    /* transition: border-left 1s, background-color .4s; */
+    background-color: rgba(182, 182, 182, 0.7);
 }
 .nomor {
+    display: inline-block;
     background-color: grey;
     color: white;
-    display: inline-block;
+    font-weight: bold;
     width: 40px;
     height: 40px;
     margin: 0 20px 0 0;
@@ -67,6 +69,17 @@ button {
     border-radius: 50%;
     text-align: center;
     line-height: 40px;
+    cursor: default;
+}
+.tingkatan {
+    display: inline-flex;
+    justify-content: center;
+    font-weight: bold;
+    line-height: 21px;
+    width: 40px;
+    height: 20px;
+    border: 2px solid black;
+    border-radius: 4px;
     cursor: default;
 }
 .tabNomor {                 /* membuat tab di bawah nomor */
@@ -79,14 +92,12 @@ button {
     display: inline-block;
     width: 140px;
     font-weight: bold;
-        background-color: violet;       /* sementara */
 }
 .variabelDetail {
     display: inline-block;
     font-weight: bold;
     margin: 0 0 0 10px;
-        background-color: orangered;    /* sementara */
 }
 .bawah {
-    margin: 0 0 60% 0;
+    margin: 0 0 50% 0;
 }
