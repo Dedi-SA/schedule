@@ -200,7 +200,7 @@
                       
                       // Jika 'y' sudah sampai akhir, maka persentase akan dihitung menggunakan rumus,
                       if (y == (KEGIATAN[$aksesArray].length - 1)) {
-                          return (Math.round((kegiatanSelesai / KEGIATAN[$aksesArray].length) * 100) / 10) + ' %';
+                          return '<strong>' + (Math.round((kegiatanSelesai / KEGIATAN[$aksesArray].length) * 1000) / 10) + '</strong> %';
                       }
                   } // Akhir For
               },
