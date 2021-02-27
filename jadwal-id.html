@@ -8,108 +8,259 @@
 </head>
 <body>
     <script>
-        const namaHari = ['Ahad', 'Senin', 'Selasa', 'Rabu', 'Kamis', "Jum'at", 'Sabtu',],
-              namaBulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember',],
-              status = ['Belum dikerjakan', 'Selesai', 'Tertunda', 'Mengulang', 'Batal'],
-              KEGIATAN = [
-                  // Tanggal 25
-                  [
-                      ['Menulis catatan', 3, '1 Jam (19.00 - 20.00 WIB)'],      // Kegiatan 1
-                  ],
-                  // Tanggal 26
-                  [
-                      ['Menata berkas', 1, '30 menit (06.00 - 06.30 WIB)'],     // Kegiatan 1
-                      ['Belajar JavaScript', 0, '4 Jam (07.00 - 11.00 WIB)'],   // Kegiatan 2
-                      ['Foto copy', 4, '40 menit (12.30 - 13.10 WIB)'],         // Kegiatan 3
-                      ['Belajar JavaScript', 0, '1 Jam (13.40 - 14.40 WIB)'],   // Kegiatan 4
-                  ],
-                  // Tanggal 27
-                  [
-                      ['Membeli beras', 0, '15 menit (05.00 - 05.15 WIB)'],     // Kegiatan 1
-                      ['Mengecek E-mail', 0, '10 menit (05.20 - 05.30 WIB)'],   // Kegiatan 2
-                      ['Membersihkan WC', 0, '2 Jam (05.55 - 07.55 WIB)'],      // Kegiatan 3
-                  ],
-                  // Tanggal 28
-                  [
-                      ['Ke rumah teman', 0, '6 Jam (07.00 - 13.00 WIB)'],       // Kegiatan 1
-                      ['Membersihkan kamar', 0, '1 Jam (13.20 - 14.20 WIB)'],   // Kegiatan 2
-                  ],
-              ];
         
         let tahun = 2021, // Tahun yang akan ditampilkan
             bulan = 2, // Variabel 'bulan' harus berupa angka (1 - 12)
-            tanggalMulai = 25,
-            tanggalAkhir = 28,
-            hari = 7, // Variabel 'hari' harus berupa angka (1 - 7) dan Sabtu sebagai hari ke-7
+            tanggalMulai = 10,
+            tanggalAkhir = 20,
+            hari = 4; /* Variabel 'hari' harus berupa angka (1 - 7) dan Sabtu dihitung sebagai hari ke-7,
+                         dan harus sesuai dengan variabel 'tanggalMulai'.
+                         Contoh misalnya tanggalMulai = 10, bulan = 2, dan tahun = 2021, maka hari yang ditulis harus sama
+                         dengan hari pada tanggal 10 bulan ke-2 tahun 2021, yang mana bertepatan dengan Hari Rabu (ditulis 4 pada Variabel 'hari')
+                      */
             
-            bukaTutup = function (ID) {
-                let tampilan = document.getElementById('kegiatan' + ID).style,
-                    tombolTampilan = document.getElementById('tombol' + ID);
-                if (tampilan.display == 'none') {
-                    tampilan.display = 'block';
-                    tombolTampilan.innerHTML = 'Sembunyikan';
-                }
-                else {
-                    tampilan.display = 'none';
-                    tombolTampilan.innerHTML = 'Tampilkan';
-                }
-            },
-            
-            cetakIsiKegiatan = function ($tanggal) {
-                let aksesArray = $tanggal - tanggalMulai;
-                for (let n = 0; n < KEGIATAN[aksesArray].length; n++) {
-                    document.write('<div class="detailKegiatan">');
-                    document.write('<span class="nomor" title="Kegiatan ' + (n+1) + ' | ' + namaHari[hari-1] + ', ' + $tanggal + ' ' + namaBulan[bulan-1] + ' ' + tahun + '">' + (n+1) + '</span><h3>' + KEGIATAN[aksesArray][n][0] + '</h3><br>');
-                    document.write('<span class="tabNomor"></span><span class="jenisDetail">Status</span>:<span class="variabelDetail">' + status[KEGIATAN[aksesArray][n][1]] + '</span><br>');
-                    document.write('<span class="tabNomor"></span><span class="jenisDetail">Estimasi waktu</span>:<span class="variabelDetail">' + KEGIATAN[aksesArray][n][2] + '</span><br>');
-                    document.write('</div>');
-                }
-            },
-            
-            cetakWadahTanggal = function () {
-                for(var i = tanggalMulai; i <= tanggalAkhir; i++) {
-                    document.write('<div class="wadahTanggal">');
-                    
-                    document.write('<div class="judulKegiatan">');
-                    document.write('<span class="wadahTeksTanggal">' + i + ' ' + namaBulan[bulan-1] + ' | ' + namaHari[hari-1] + '</span><button onclick="bukaTutup(' + i + ');" id="tombol' + i + '">Tampilkan</button><br>');
-                    document.write('</div>');
-                    
-                    document.write('<div class="isiKegiatan" id="kegiatan' + i + '" style="display: none;">');
-                    cetakIsiKegiatan(i);
-                    document.write('</div>');
-                    
-                    document.write('</div>');
-                    
-                    hari++;
-                    if (hari > namaHari.length){
-                        hari = 1;
-                    }
-                }
-            },
-            
-            cetakBulan = function () {
-                document.write('<div class="wadahBulan">');
-                cetakWadahTanggal();
-                document.write('</div>');
-            },
-            
-            cekKelengakapan = function () {
-                if (namaHari.length == 7 && namaBulan.length == 12 && status.length == 5) {
-                    return true;
-                }
-                else {
-                    return false;
-                }
-            };
+              //             1       2         3        4       5         6        7     
+        const namaHari = ['Ahad', 'Senin', 'Selasa', 'Rabu', 'Kamis', "Jum'at", 'Sabtu', ],
+              //               1           2         3        4       5       6       7        8           9           10         11          12
+              namaBulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember', ],
+              //               0                1           2           3          4
+              status = ['Belum dikerjakan', 'Selesai', 'Tertunda', 'Mengulang', 'Batal', ],
+              //            0    1    2    3
+              tingkatan = ['A', 'B', 'C', 'D', ],
+              //
+              warnaTingkatan = [['red', 'white'], ['blue', 'white'], ['green', 'white'], ['yellow', 'black'], ],
+              
+              KEGIATAN = [
+                  // Tanggal 10
+                  [
+                      // Nama kegiatan | tingkatan | status | waktu (menit)
+                      ['Menulis catatan', 1, 3, 60, ],      // Kegiatan 1
+                  ],
+                  // Tanggal 11
+                  [
+                      // Nama kegiatan | tingkatan | status | waktu (menit)
+                      ['Menata berkas', 0, 1, 30, ],     // Kegiatan 1
+                      ['Belajar JavaScript', 1, 0, 240, ],   // Kegiatan 2
+                      ['Foto copy', 2, 4, 40, ],         // Kegiatan 3
+                      ['Belajar JavaScript', 3, 0, 60, ],   // Kegiatan 4
+                  ],
+                  // Tanggal 12
+                  [
+                      // Nama kegiatan | tingkatan | status | waktu (menit)
+                      ['Membeli beras', 0, 0, 15, ],     // Kegiatan 1
+                      ['Mengecek E-mail', 3, 0, 10, ],   // Kegiatan 2
+                      ['Membersihkan WC', 2, 0, 120, ],      // Kegiatan 3
+                  ],
+                  // Tanggal 13
+                  [
+                      // Nama kegiatan | tingkatan | status | waktu (menit)
+                      ['Ke rumah teman', 1, 2, 360, ],       // Kegiatan 1
+                      ['Membersihkan kamar', 2, 1, 60, ],   // Kegiatan 2
+                  ],
+                  // Tanggal 14
+                  [
+                      // Nama kegiatan | tingkatan | status | waktu (menit)
+                      ["Mempelajari 'batch file'", 2, 2, 240, ],
+                      ['Ke alun-alun kota', 3, 1, 139, ],
+                      ['Melihat situasi pasca banjir', 3, 0, 15, ],
+                      ['Melukis daun kemangi', 2, 2, 192, ],
+                      ['Belajar JavaScript', 1, 0, 110, ],
+                      ['Membaca E-Mail dan semua pesan', 1, 0, 20, ],
+                      ['Menulis catatan', 3, 0, 2, ],
+                  ],
+                  // Tanggal 15
+                  [
+                      // Nama kegiatan | tingkatan | status | waktu (menit)
+                      ['Membeli kayu', 1, 2, 100, ],
+                      ['Membeli paku panjang', 1, 0, 10, ],
+                      ['Membeli semen putih', 1, 1, 20, ],
+                  ],
+                  // Tanggal 16
+                  [
+                      // Nama kegiatan | tingkatan | status | waktu (menit)
+                      ['Foto copy KTP', 0, 1, 22, ],
+                      ['Legalisir ijazah', 0, 1, 0, 77, ],
+                      ['Membeli buku Pemrograman JavaScript', 2, 0, 115, ],
+                      ['Menyalin catatan', 1, 2, 88, ],
+                      ['Merapikan kamar', 0, 0, 109, ],
+                      ['Memompa ban', 1, 1, 5, ],
+                  ],
+                  // Tanggal 17
+                  [
+                      // Nama kegiatan | tingkatan | status | waktu (menit)
+                      ['Mengembalikan buku', 0, 3, 29, ],
+                      ['Mendata dokumen dan FC', 0, 2, 66, ],
+                      ['Melanjutkan melukis daun kemangi', 3, 0, 130, ],
+                      ['Membeli pulpen dan pensil', 1, 1, 25, ],
+                      ['Menyiram dan merawat tanaman', 1, 3, 50, ],
+                      ['Membayar listrik', 0, 0, 5, ],
+                      ['Ke rumah teman', 0, 4, 248, ],
+                      ['Membeli sayuran', 1, 1, 45, ],
+                  ],
+                  // Tanggal 18
+                  [
+                      // Nama kegiatan | tingkatan | status | waktu (menit)
+                      ['Kondangan ke Surabaya dan Gresik', 0, 0, 390, ],
+                  ],
+                  // Tanggal 19
+                  [
+                      // Nama kegiatan | tingkatan | status | waktu (menit)
+                      ['Membeli minyak wangi', 1, 2, 34, ],
+                      ['Membersihkan keran air', 0, 1, 7, ],
+                  ],
+                  // Tanggal 20
+                  [
+                      // Nama kegiatan | tingkatan | status | waktu (menit)
+                      ['Olahraga pagi', 1, 3, 115, ],
+                      ['Membeli obat', 0, 0, 50, ],
+                      ['Download modul Pemrograman JavaScript', 1, 2, 5, ],
+                      ['Belajar JavaScript', 2, 0, 140, ],
+                      ['Beli Indomie Goreng 4 bungkus', 3, 1, 6, ],
+                  ],
+              ],
+              
+              // Untuk membuka dan menutup tampilan daftar kegiatan kegiatan
+              bukaTutup = function (ID) {
+                  let tampilan = document.getElementById('kegiatan' + ID).style,
+                      tombolTampilan = document.getElementById('tombol' + ID);
+                  if (tampilan.display == 'none') {
+                      tampilan.display = 'block';
+                      tombolTampilan.innerHTML = 'Sembunyikan';
+                  }
+                  else {
+                      tampilan.display = 'none';
+                      tombolTampilan.innerHTML = 'Tampilkan';
+                  }
+                },
+              
+              // Variabel yang dikirim ke fungsi ini berupa VARIABEL ANGKA yang mewakili satuan MENIT
+              formatWaktu = function (waktu) {
+                  // Waktu yang dikirim harus bernilai lebih dari nol
+                  if (waktu > 0) {
+                      // Jika waktu yang dikirimkan kurang dari 60
+                      if (waktu < 60) {
+                          return waktu + ' menit';
+                      }
+                      // Jika waktu yang dikirimkan merupakan kelipatan dari 60
+                      else if (waktu % 60 == 0) {
+                          return waktu / 60 + ' jam';
+                      }
+                      // Jika waktu yang dikirimkan lebih dari 60 dan bukan kelipatan dari 60
+                      else {
+                          //     ----angka untuk jam---          angka untuk menit
+                          return Math.floor(waktu / 60) + ' jam ' + waktu % 60 + ' menit';
+                          // JAM   : 'waktu' akan dibagi 60 dan hasilnya akan dibulatkan ke bawah menggunakan Math.floor()
+                          // MENIT : Sisa hasil bagi dari ( 'waktu'/60 )
+                      }
+                  }
+                  // Jika waktu yang dikirimkan bernilai 0 atau negatif
+                  else {
+                      return 0;
+                  }
+              },
+              
+              // Untuk mencetak Status Tingkatan
+              cetakTingkatan = function ($nomorTingkatan) {
+                  // Untuk menunjuk kelas warna tingkatan
+                  const $ = warnaTingkatan[$nomorTingkatan];
+                  return '<span class="tingkatan" style="background-color: ' + $[0] + '; color: ' + $[1] + ';">' + tingkatan[$nomorTingkatan] + '</span>';
+              },
+              
+              // Menghitung jumlah kegiatan harian
+              totalKegiatanHarian = function ($aksesArray) {
+                  return KEGIATAN[$aksesArray].length;
+              },
+              
+              // Fungsi ini untuk menghitung jumlah total waktu kegiatan selama satu hari,
+              // dan nilai yang dikembalikan akan berupa angka yang mewakili satuan menit
+              totalWaktuHarian = function ($aksesArray) {
+                  let jumlahWaktu = 0;
+                  
+                  // Variabel 'z' mewakili jumlah kegiatan selama hari
+                  //                  jumlah kegiatan dalam sehari
+                  for (let z = 0; z < KEGIATAN[$aksesArray].length; z++) {
+                      jumlahWaktu += KEGIATAN[$aksesArray][z][3];
+                      
+                      // Jika semua waktu kegiatan sudah dijumlahkan, maka nilai akan langsung dikembalikan
+                      if (z == (KEGIATAN[$aksesArray].length - 1)) {
+                          return jumlahWaktu;
+                      }
+                  } // Akhir for
+              },
+              
+              // Mencetak isi kegiatan dalam sehari
+              cetakIsiKegiatan = function ($tanggal) {
+                  let aksesArray = $tanggal - tanggalMulai;
+                  // Variabel 'n' mewakili jumlah kegiatan dalam sehari
+                  for (let n = 0; n < KEGIATAN[aksesArray].length; n++) {
+                      // $keg : Variabel untuk menunjuk secara spesifik kegiatan yang dimaksud
+                      let $keg = KEGIATAN[aksesArray][n];
+                      document.write('<div class="detailKegiatan">');
+                      document.write('<span class="nomor" title="Kegiatan ' + (n+1) + ' | ' + namaHari[hari-1] + ', ' + $tanggal + ' ' + namaBulan[bulan-1] + ' ' + tahun + '">' + (n+1) + '</span><h3>' + $keg[0] + '</h3>' + cetakTingkatan($keg[1]) + '<br>');
+                      document.write('<span class="tabNomor"></span><span class="jenisDetail">Status</span>:<span class="variabelDetail">' + status[$keg[2]] + '</span><br>');
+                      document.write('<span class="tabNomor"></span><span class="jenisDetail">Estimasi waktu</span>:<span class="variabelDetail">' + formatWaktu($keg[3]) + '</span><br>');
+                      document.write('</div>');
+                  }
+              },
+              
+              // Mencetak semua tanggal dalam sebulan
+              cetakWadahTanggal = function () {
+                  for(var i = tanggalMulai; i <= tanggalAkhir; i++) {
+                      document.write('<div class="wadahTanggal">');
+                      
+                      document.write('<div class="judulKegiatan">');
+                        document.write('<span class="wadahTeksTanggal">' + namaHari[hari-1] + ', ' + i + ' ' + namaBulan[bulan-1] + '</span><button onclick="bukaTutup(' + i + ');" id="tombol' + i + '">Tampilkan</button><br>');
+                      document.write('</div>');
+                      
+                      document.write('<div class="totalHarian"><strong>' + totalKegiatanHarian(i-tanggalMulai) + '</strong> kegiatan | ' + formatWaktu(totalWaktuHarian(i-tanggalMulai)));
+                      document.write('</div>');
+                      
+                      document.write('<div class="isiKegiatan" id="kegiatan' + i + '" style="display: none;">');
+                        cetakIsiKegiatan(i);
+                      document.write('</div>');
+                      
+                      document.write('</div>');
+                      
+                      hari++;
+                      
+                      // Jika variabel 'hari' sudah melebihi jumlah hari (7),
+                      // maka hari akan di-reset kembali menjadi 1 (untuk memulai kembali ke hari pertama)
+                      if (hari > namaHari.length){
+                          hari = 1;
+                      }
+                  }
+              },
+              
+              // Mencetak wadah bulan
+              cetakBulan = function () {
+                  document.write('<div class="wadahBulan">');
+                  cetakWadahTanggal();
+                  document.write('</div>');
+              },
+              
+              // (Fungsi ini sementara di-nonaktifkan)
+              cekKelengakapan = function () {
+    //               if (namaHari.length == 7 && namaBulan.length == 12 && status.length == 5) {
+                      return true;
+    //               }
+    //               else {
+    //                   return false;
+    //               }
+              };
         
         if (cekKelengakapan()) {
+            document.write('<div id="halamanUtama">');
             document.write('<h1>Jadwal ' + namaBulan[bulan-1] + ' ' + tahun + '</h1>');
             document.write('* <i>Tampilan sementara</i><br><br>');
             cetakBulan();
             document.write('<br><br><div class="bawah"></div>');
+            document.write('</div>');
         }
         else {
+            document.write('<div id="halamanKesalahan">');
             document.write('<h1>Terjadi Kesalahan</h1>');
+            document.write('<h3>Telah terjadi kesalahan pada sistem</h3>');
+            document.write('</div>');
         }
         
     </script>
