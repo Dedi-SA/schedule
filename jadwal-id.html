@@ -188,6 +188,23 @@
                   } // Akhir for
               },
               
+              // Mengubah nilai yang dikirimkan menjadi bentuk persen
+              persentaseHarian = function ($aksesArray) {
+                  let kegiatanSelesai = 0;
+                  for (let y = 0; y < KEGIATAN[$aksesArray].length; y++) {
+                      // Jika status kegiatan bernilai 1 (yang artinya SELESAI),
+                      // maka nilai dari Variabel 'kegiatanSelesai' akan bertambah 1
+                      if (KEGIATAN[$aksesArray][y][2] == 1) {
+                          kegiatanSelesai++;
+                      }
+                      
+                      // Jika 'y' sudah sampai akhir, maka persentase akan dihitung menggunakan rumus,
+                      if (y == (KEGIATAN[$aksesArray].length - 1)) {
+                          return (Math.round((kegiatanSelesai / KEGIATAN[$aksesArray].length) * 100) / 10) + ' %';
+                      }
+                  } // Akhir For
+              },
+              
               // Mencetak semua kegiatan dalam sehari
               cetakIsiKegiatan = function ($tanggal) {
                   let aksesArray = $tanggal - tanggalMulai;
@@ -212,7 +229,7 @@
                         document.write('<span class="wadahTeksTanggal">' + namaHari[hari-1] + ', ' + i + ' ' + namaBulan[bulan-1] + '</span><button onclick="bukaTutup(' + i + ');" id="tombol' + i + '">Tampilkan</button><br>');
                       document.write('</div>');
                       
-                      document.write('<div class="totalHarian"><strong>' + totalKegiatanHarian(i-tanggalMulai) + '</strong> kegiatan | ' + formatWaktu(totalWaktuHarian(i-tanggalMulai)));
+                      document.write('<div class="totalHarian"><strong>' + totalKegiatanHarian(i-tanggalMulai) + '</strong> kegiatan | ' + formatWaktu(totalWaktuHarian(i-tanggalMulai)) + ' | ' + persentaseHarian(i-tanggalMulai));
                       document.write('</div>');
                       
                       document.write('<div class="isiKegiatan" id="kegiatan' + i + '" style="display: none;">');
