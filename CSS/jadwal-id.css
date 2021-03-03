@@ -20,6 +20,7 @@ button {
     border: 2px solid black;
     border-radius: 3px;
     vertical-align: top;
+    cursor: pointer;
 }
 .wadahBulan {
     margin-left: 15px;
