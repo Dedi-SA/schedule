@@ -1,5 +1,5 @@
 /*
-    Version  : 4.1
+    Version  : 4.2
     Language : Bahasa Indonesia
 */
 
@@ -12,6 +12,7 @@ h1 {
     margin: 0 10px 0 0;
 }
 button {
+    display: inline-block;
     background-color: blue;
     color: white;
     width: 110px;
@@ -60,8 +61,6 @@ button {
 }
 .nomor {
     display: inline-block;
-    background-color: grey;
-    color: white;
     font-weight: bold;
     width: 40px;
     height: 40px;
@@ -81,7 +80,6 @@ button {
     height: 20px;
     border: 2px solid black;
     border-radius: 4px;
-    cursor: default;
 }
 .tabNomor {                 /* membuat tab di bawah nomor */
     color: transparent;
@@ -98,6 +96,10 @@ button {
     display: inline-block;
     font-weight: bold;
     margin: 0 0 0 10px;
+}
+.keteranganTingkatan {
+    width: 60%;
+    margin: auto;
 }
 .bawah {
     margin: 0 0 50% 0;
