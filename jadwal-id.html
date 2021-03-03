@@ -8,15 +8,13 @@
 </head>
 <body>
     <script>
-        
         let tahun = 2021, // Tahun yang akan ditampilkan
-            bulan = 2, // Variabel 'bulan' harus berupa angka (1 - 12)
-            tanggalMulai = 10,
-            tanggalAkhir = 20,
+            bulan = 3, // Variabel 'bulan' harus berupa angka (1 - 12)
+            tanggalMulai = 2,
             hari = 4; /* Variabel 'hari' harus berupa angka (1 - 7) dan Sabtu dihitung sebagai hari ke-7,
                          dan harus sesuai dengan variabel 'tanggalMulai'.
-                         Contoh misalnya tanggalMulai = 10, bulan = 2, dan tahun = 2021, maka hari yang ditulis harus sama
-                         dengan hari pada tanggal 10 bulan ke-2 tahun 2021, yang mana bertepatan dengan Hari Rabu (ditulis 4 pada Variabel 'hari')
+                         Contoh misalnya tanggalMulai = 2, bulan = 3, dan tahun = 2021, maka hari yang ditulis harus sama
+                         dengan hari pada tanggal 2 bulan ke-3 tahun 2021, yang mana bertepatan dengan Hari Rabu (ditulis 4 pada Variabel 'hari')
                       */
             
               //             1       2         3        4       5         6        7     
@@ -27,9 +25,41 @@
               status = ['Belum dikerjakan', 'Selesai', 'Tertunda', 'Mengulang', 'Batal', ],
               //            0    1    2    3
               tingkatan = ['A', 'B', 'C', 'D', ],
-              //
+              //                ------- 0 ------  ------- 1 -------  -------- 2 -------  -------- 3 --------
               warnaTingkatan = [['red', 'white'], ['blue', 'white'], ['green', 'white'], ['yellow', 'black'], ],
               
+              teksKeterangan = [
+                  // Teks keterangan tingkatan A [0]
+                  ['Tingkatan A merupakan tingkatan dengan peringkat tertinggi. Prioritas A digunakan',
+                   ' untuk kegiatan dengan kepentingan yang sangat serius dan harus dikerjakan saat itu juga,',
+                   ' biasanya terkait dengan nyawa, kesehatan, penyelesaian konflik, pekerjaan, dan kegiatan yang mungkin',
+                   ' berakibat fatal/serius jika tidak dikerjakan.<br><br>',
+                   'Contoh : menjenguk orang sakit, menghadiri resepsi, membeli obat, pergi ke dokter, dan sebagainya.', ],
+                  
+                  // Teks keterangan B tingkatan [1]
+                  ['Tingkatan B menduduki peringkat ke-2, digunakan sebagai tanda untuk kegiatan penting yang terkait',
+                   ' dengan kebutuhan dan segala hal yang dilakukan demi kebaikan diri sendiri dan orang lain.',
+                   ' Semua keinginan yang bertentangan dengan kebutuhan maka tertolak. Kegiatan yang memiliki',
+                   ' tingkatan B tetap harus dilaksanakan meski ada keinginan lain yang tidak sesuai kebutuhan.<br><br>',
+                   'Contoh : belajar pemrograman, olahraga, reuni, mengatur pola makan, dan sebagainya.', ],
+                  
+                  // Teks keterangan C [2]
+                  ['Tingkatan C digunakan untuk kegiatan santai namun bersifat positif,',
+                   ' dan kegiatan tersebut bisa berguna untuk sekarang atau di kemudian hari.',
+                   ' Termasuk pada kegiatan yang tidak bisa dikerjakan di sembarang tempat dan waktu,',
+                   ' dan termasuk di dalamnya kegiatan yang melatih kemampuan tambahan dan juga softskill.<br><br>',
+                   'Contoh : Memperbaiki barang, menanam sayur, mencari informasi, membersihkan kamar, dan sebagainya.', ],
+                  
+                  // Teks keterangan D [3]
+                  ['Tingkatan D dipakai pada kegiatan yang santai yang tidak mengapa bila tidak dikerjakan',
+                   ' dan bisa dilakukan di sembarang tempat dan waktu. Segala aktifitas yang tidak penting, hobi',
+                   ' yang tidak umum, selama tidak merugikan diri sendiri atau orang lain dan tidak mengakibatkan efek',
+                   ' buruk jangka pendek maupun jangka panjang, serta kegiatan yang bisa memperbaiki suasana hati',
+                   ' bisa termasuk pada kegiatan tingkat D.<br><br>',
+                   'Contoh : jalan-jalan, bermain game, hobi ringan, menggambar daun, dan sebagainya.', ],
+              ],
+              
+              // PERINGATAN : Tidak boleh ada tipe data yang salah dan dilarang menggunakan nilai 'undefined'
               KEGIATAN = [
                   // Tanggal 10
                   [
@@ -119,21 +149,29 @@
                   ],
               ],
               
+              // Untuk menentukan batas akhir perulangan dalam mencetak jumlah hari sesuai 'array' yang tersedia
+              tanggalAkhir = tanggalMulai + (KEGIATAN.length-1),
+              
               // Untuk membuka dan menutup tampilan daftar kegiatan kegiatan
-              bukaTutup = function (ID) {
-                  let tampilan = document.getElementById('kegiatan' + ID).style,
-                      tombolTampilan = document.getElementById('tombol' + ID);
+              bukaTutupKegiatan = function (ID) {
+                  const tampilan = document.getElementById('kegiatan' + ID).style,
+                        tombolTampilan = document.getElementById('tombol' + ID);
+                  
+                  /* Jika kegiatan selama sehari belum ditampilkan, maka semua kegiatan tersebut akan ditampilkan
+                     dan teks pada tombol yang tadinya bertuliskan 'Tampilkan' diganti menjadi 'Sembunyikan' */
                   if (tampilan.display == 'none') {
                       tampilan.display = 'block';
                       tombolTampilan.innerHTML = 'Sembunyikan';
                   }
+                  /* Jika kegiatan selama sehari sudah ditampilkan, maka semua kegiatan tersebut akan disembunyikan
+                     dan teks pada tombol yang tadinya bertuliskan 'Sembunyikan' diganti menjadi 'Tampilkan' */
                   else {
                       tampilan.display = 'none';
                       tombolTampilan.innerHTML = 'Tampilkan';
                   }
-                },
+              },
               
-              // Variabel yang dikirim ke fungsi ini berupa VARIABEL ANGKA yang mewakili satuan MENIT
+              // Variabel yang dikirim ke fungsi ini berupa variabel bernilai ANGKA yang mewakili satuan MENIT
               formatWaktu = function (waktu) {
                   // Waktu yang dikirim harus bernilai lebih dari nol
                   if (waktu > 0) {
@@ -149,8 +187,8 @@
                       else {
                           //     ----angka untuk jam---          angka untuk menit
                           return Math.floor(waktu / 60) + ' jam ' + waktu % 60 + ' menit';
-                          // JAM   : 'waktu' akan dibagi 60 dan hasilnya akan dibulatkan ke bawah menggunakan Math.floor()
-                          // MENIT : Sisa hasil bagi dari ( 'waktu'/60 )
+                          /* JAM   : 'waktu' akan dibagi 60 dan hasilnya akan dibulatkan ke bawah menggunakan Math.floor()
+                             MENIT : Sisa hasil bagi dari ( 'waktu'/60 ) */
                       }
                   }
                   // Jika waktu yang dikirimkan bernilai 0 atau negatif
@@ -160,15 +198,35 @@
               },
               
               // Untuk mencetak Status Tingkatan
-              cetakTingkatan = function ($nomorTingkatan) {
-                  // Untuk menunjuk kelas warna tingkatan
+              cetakTingkatan = function ($nomorTingkatan, statusLink) {
+                  // $ : Untuk menunjuk kelas warna tingkatan
                   const $ = warnaTingkatan[$nomorTingkatan];
-                  return '<span class="tingkatan" style="background-color: ' + $[0] + '; color: ' + $[1] + ';">' + tingkatan[$nomorTingkatan] + '</span>';
+                  return '<span class="tingkatan" ' + (statusLink ? 'onclick="bukaTutupTingkatan(' + $nomorTingkatan + ')"' : '') + ' style="background-color: ' + $[0] + '; color: ' + $[1] + '; cursor: ' + (statusLink ? 'pointer' : 'default') + ';" title="Tingkatan ' + tingkatan[$nomorTingkatan] + '">' + tingkatan[$nomorTingkatan] + '</span>';
               },
               
-              // Menghitung jumlah kegiatan harian
-              totalKegiatanHarian = function ($aksesArray) {
-                  return KEGIATAN[$aksesArray].length;
+              // Fungsi untuk membuka dan menutup Halaman Info Tingkatan saat lambang tingkatan di-klik
+              // Parameter bernilai 'integer'
+              bukaTutupTingkatan = function ($nomorTingkatan) {
+                  const utama = document.getElementById('halamanUtama').style,
+                        tombolTingkatan = document.getElementById('tombolTingkatan' + $nomorTingkatan).style,
+                        tingkatan = document.getElementById('tingkatan' + $nomorTingkatan).style;
+                  //                         ----------------------------------------- true -----------------------------------------   ---------------------------------------- false ----------------------------------------
+                  utama.display == 'block' ? (utama.display = 'none', tombolTingkatan.display = 'block', tingkatan.display = 'block') : (utama.display = 'block', tombolTingkatan.display = 'none', tingkatan.display = 'none');
+              },
+              
+              // Mencetak semua halaman tentang jenis-jenis Tingkatan
+              cetakHalamanKeteranganTingkatan = function () {
+                  for (let j = 0; j < tingkatan.length; j++) {
+                      document.write('<button style="position: fixed; display: none; margin: 10px 0 0 10px;" onclick="bukaTutupTingkatan(' + j + ')" id="tombolTingkatan' + j + '"><< Kembali</button>');
+                      
+                      document.write('<div id="tingkatan' + j + '" class="keteranganTingkatan" style="display: none;">');
+                      document.write('<h1>Tingkatan ' + tingkatan[j] + '</h1>');
+                      document.write('<span class="jenisDetail">Tingkatan prioritas</span>: Tingkat <strong>' + tingkatan[j] + '</strong><br>');
+                      document.write('<span class="jenisDetail">Tampilan tanda</span>: <span style="display: inline-block; margin: 20px 0 0 0;">' + cetakTingkatan(j, false) + '</span><br>');
+                          document.write('<br><div style="text-align: justify; font-size: 18px;">&emsp;&emsp;' + teksKeterangan[j].join(''));
+                          document.write('</div>');
+                      document.write('</div>');
+                  } // Akhir 'for'
               },
               
               // Fungsi ini untuk menghitung jumlah total waktu kegiatan selama satu hari,
@@ -213,7 +271,7 @@
                       // $keg : Variabel untuk menunjuk secara spesifik kegiatan yang dimaksud
                       let $keg = KEGIATAN[aksesArray][n];
                       document.write('<div class="detailKegiatan">');
-                      document.write('<span class="nomor" title="Kegiatan ' + (n+1) + ' | ' + namaHari[hari-1] + ', ' + $tanggal + ' ' + namaBulan[bulan-1] + ' ' + tahun + '">' + (n+1) + '</span><h3>' + $keg[0] + '</h3>' + cetakTingkatan($keg[1]) + '<br>');
+                      document.write('<span class="nomor" style="background-color: ' + ($keg[2] === 1 ? 'rgb(109, 231, 88)' : 'white') + '; color: ' + ($keg[2] === 1 ? 'black' : 'black') + ';" title="Kegiatan ' + (n+1) + ' | ' + namaHari[hari-1] + ', ' + $tanggal + ' ' + namaBulan[bulan-1] + ' ' + tahun + '">' + (n+1) + '</span><h3>' + $keg[0] + '</h3>' + cetakTingkatan($keg[1], true) + '<br>');
                       document.write('<span class="tabNomor"></span><span class="jenisDetail">Status</span>:<span class="variabelDetail">' + status[$keg[2]] + '</span><br>');
                       document.write('<span class="tabNomor"></span><span class="jenisDetail">Estimasi waktu</span>:<span class="variabelDetail">' + formatWaktu($keg[3]) + '</span><br>');
                       document.write('</div>');
@@ -222,14 +280,14 @@
               
               // Mencetak semua tanggal dalam sebulan
               cetakWadahTanggal = function () {
-                  for(var i = tanggalMulai; i <= tanggalAkhir; i++) {
+                  for(let i = tanggalMulai; i <= tanggalAkhir; i++) {
                       document.write('<div class="wadahTanggal">');
                       
                       document.write('<div class="judulKegiatan">');
-                        document.write('<span class="wadahTeksTanggal">' + namaHari[hari-1] + ', ' + i + ' ' + namaBulan[bulan-1] + '</span><button onclick="bukaTutup(' + i + ');" id="tombol' + i + '">Tampilkan</button><br>');
+                        document.write('<span class="wadahTeksTanggal">' + namaHari[hari-1] + ', ' + i + ' ' + namaBulan[bulan-1] + '</span><button onclick="bukaTutupKegiatan(' + i + ');" id="tombol' + i + '">Tampilkan</button><br>');
                       document.write('</div>');
                       
-                      document.write('<div class="totalHarian"><strong>' + totalKegiatanHarian(i-tanggalMulai) + '</strong> kegiatan | ' + formatWaktu(totalWaktuHarian(i-tanggalMulai)) + ' | ' + persentaseHarian(i-tanggalMulai));
+                      document.write('<div class="totalHarian"><strong>' + KEGIATAN[i-tanggalMulai].length + '</strong> kegiatan | ' + formatWaktu(totalWaktuHarian(i-tanggalMulai)) + ' | ' + persentaseHarian(i-tanggalMulai));
                       document.write('</div>');
                       
                       document.write('<div class="isiKegiatan" id="kegiatan' + i + '" style="display: none;">');
@@ -271,6 +329,9 @@
             cetakBulan();
             document.write('<br><br><div class="bawah"></div>');
             document.write('</div>');
+            
+            // Untuk mencetak semua halaman keterangan tingkatan
+            cetakHalamanKeteranganTingkatan();
         }
         else {
             document.write('<div id="halamanKesalahan">');
@@ -282,15 +343,3 @@
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
