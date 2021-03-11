@@ -314,6 +314,7 @@ const namaHari = ['Ahad', 'Senin', 'Selasa', 'Rabu', 'Kamis', "Jum'at", 'Sabtu',
       };
 
 if (cekKelengakapan()) {
+    document.title(namaBulan[bulan-1] + ' ' + tahun);
     document.write('<div id="halamanUtama" style="display: block;">');
     document.write('<h1>Jadwal ' + namaBulan[bulan-1] + ' ' + tahun + '</h1>');
     cetakBulan();
