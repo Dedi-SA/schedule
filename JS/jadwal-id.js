@@ -143,7 +143,7 @@ const namaHari = ['Ahad', 'Senin', 'Selasa', 'Rabu', 'Kamis', "Jum'at", 'Sabtu',
       tanggalAkhir = tanggalMulai + (KEGIATAN.length-1),
 
       // Untuk membuka dan menutup tampilan daftar kegiatan kegiatan
-      bukaTutupKegiatan = function (ID) {
+      bukaTutupKegiatan = (ID) => {
           const tampilan = document.getElementById('kegiatan' + ID).style,
                 tombolTampilan = document.getElementById('tombol' + ID);
 
@@ -162,7 +162,7 @@ const namaHari = ['Ahad', 'Senin', 'Selasa', 'Rabu', 'Kamis', "Jum'at", 'Sabtu',
       },
 
       // Variabel yang dikirim ke fungsi ini berupa variabel bernilai ANGKA yang mewakili satuan MENIT
-      formatWaktu = function (waktu) {
+      formatWaktu = (waktu) => {
           // Waktu yang dikirim harus bernilai lebih dari nol
           if (waktu > 0) {
               // Jika waktu yang dikirimkan kurang dari 60
@@ -188,7 +188,7 @@ const namaHari = ['Ahad', 'Senin', 'Selasa', 'Rabu', 'Kamis', "Jum'at", 'Sabtu',
       },
 
       // Untuk mencetak Status Tingkatan
-      cetakTingkatan = function ($nomorTingkatan, statusLink) {
+      cetakTingkatan = ($nomorTingkatan, statusLink) => {
           // $ : Untuk menunjuk kelas warna tingkatan
           const $ = warnaTingkatan[$nomorTingkatan];
           return '<span class="tingkatan" ' + (statusLink ? 'onclick="bukaTutupTingkatan(' + $nomorTingkatan + ')"' : '') + ' style="background-color: ' + $[0] + '; color: ' + $[1] + '; cursor: ' + (statusLink ? 'pointer' : 'default') + ';" title="Tingkatan ' + tingkatan[$nomorTingkatan] + '">' + tingkatan[$nomorTingkatan] + '</span>';
@@ -196,7 +196,7 @@ const namaHari = ['Ahad', 'Senin', 'Selasa', 'Rabu', 'Kamis', "Jum'at", 'Sabtu',
 
       // Fungsi untuk membuka dan menutup Halaman Info Tingkatan saat lambang tingkatan di-klik
       // Parameter bernilai 'integer'
-      bukaTutupTingkatan = function ($nomorTingkatan) {
+      bukaTutupTingkatan = ($nomorTingkatan) => {
           const utama = document.getElementById('halamanUtama').style,
                 tombolTingkatan = document.getElementById('tombolTingkatan' + $nomorTingkatan).style,
                 tingkatan = document.getElementById('tingkatan' + $nomorTingkatan).style;
@@ -205,7 +205,7 @@ const namaHari = ['Ahad', 'Senin', 'Selasa', 'Rabu', 'Kamis', "Jum'at", 'Sabtu',
       },
 
       // Mencetak semua halaman tentang jenis-jenis Tingkatan
-      cetakHalamanKeteranganTingkatan = function () {
+      cetakHalamanKeteranganTingkatan = () => {
           for (let j = 0; j < tingkatan.length; j++) {
               document.write('<button style="position: fixed; display: none; margin: 10px 0 0 10px;" onclick="bukaTutupTingkatan(' + j + ')" id="tombolTingkatan' + j + '"><< Kembali</button>');
 
@@ -221,7 +221,7 @@ const namaHari = ['Ahad', 'Senin', 'Selasa', 'Rabu', 'Kamis', "Jum'at", 'Sabtu',
 
       // Fungsi ini untuk menghitung jumlah total waktu kegiatan selama satu hari,
       // dan nilai yang dikembalikan akan berupa angka yang mewakili satuan menit
-      totalWaktuHarian = function ($aksesArray) {
+      totalWaktuHarian = ($aksesArray) => {
           let jumlahWaktu = 0;
 
           // Variabel 'z' mewakili jumlah kegiatan selama sehari
@@ -237,7 +237,7 @@ const namaHari = ['Ahad', 'Senin', 'Selasa', 'Rabu', 'Kamis', "Jum'at", 'Sabtu',
       },
 
       // Mengubah nilai yang dikirimkan menjadi bentuk persen
-      persentaseHarian = function ($aksesArray) {
+      persentaseHarian = ($aksesArray) => {
           let kegiatanSelesai = 0;
           for (let y = 0; y < KEGIATAN[$aksesArray].length; y++) {
               // Jika status kegiatan bernilai 1 (yang artinya SELESAI),
@@ -254,7 +254,7 @@ const namaHari = ['Ahad', 'Senin', 'Selasa', 'Rabu', 'Kamis', "Jum'at", 'Sabtu',
       },
 
       // Mencetak semua kegiatan dalam sehari
-      cetakIsiKegiatan = function ($tanggal) {
+      cetakIsiKegiatan = ($tanggal) => {
           let aksesArray = $tanggal - tanggalMulai;
           // Variabel 'n' mewakili jumlah kegiatan dalam sehari
           for (let n = 0; n < KEGIATAN[aksesArray].length; n++) {
@@ -269,7 +269,7 @@ const namaHari = ['Ahad', 'Senin', 'Selasa', 'Rabu', 'Kamis', "Jum'at", 'Sabtu',
       },
 
       // Mencetak semua tanggal dalam sebulan
-      cetakWadahTanggal = function () {
+      cetakWadahTanggal = () => {
           for(let i = tanggalMulai; i <= tanggalAkhir; i++) {
               document.write('<div class="wadahTanggal">');
 
@@ -297,24 +297,25 @@ const namaHari = ['Ahad', 'Senin', 'Selasa', 'Rabu', 'Kamis', "Jum'at", 'Sabtu',
       },
 
       // Mencetak wadah bulan
-      cetakBulan = function () {
+      cetakBulan = () => {
           document.write('<div class="wadahBulan">');
           cetakWadahTanggal();
           document.write('</div>');
       },
 
       // (Fungsi ini sementara di-nonaktifkan)
-      cekKelengakapan = function () {
+      cekKelengakapan = () => true;
+//       cekKelengakapan = function () {
 //               if (namaHari.length == 7 && namaBulan.length == 12 && status.length == 5) {
-              return true;
+//               return true;
 //               }
 //               else {
 //                   return false;
 //               }
-      };
+//       };
 
 if (cekKelengakapan()) {
-    document.title(namaBulan[bulan-1] + ' ' + tahun);
+    document.title = namaBulan[bulan-1] + ' ' + tahun;
     document.write('<div id="halamanUtama" style="display: block;">');
     document.write('<h1>Jadwal ' + namaBulan[bulan-1] + ' ' + tahun + '</h1>');
     cetakBulan();
