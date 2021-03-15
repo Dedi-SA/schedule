@@ -261,7 +261,7 @@ const namaHari = ['Ahad', 'Senin', 'Selasa', 'Rabu', 'Kamis', "Jum'at", 'Sabtu',
               // $keg : Variabel untuk menunjuk secara spesifik kegiatan yang dimaksud
               let $keg = KEGIATAN[aksesArray][n];
               document.write('<div class="detailKegiatan">');
-              document.write('<span class="nomor" style="background-color: ' + ($keg[2] === 1 ? 'rgb(109, 231, 88)' : 'white') + '; color: ' + ($keg[2] === 1 ? 'black' : 'black') + ';" title="Kegiatan ' + (n+1) + ' | ' + namaHari[hari-1] + ', ' + $tanggal + ' ' + namaBulan[bulan-1] + ' ' + tahun + '">' + (n+1) + '</span><h3>' + $keg[0] + '</h3>' + cetakTingkatan($keg[1], true) + '<br>');
+              document.write('<span class="nomor" style="background-color: ' + ($keg[2] === 1 ? 'rgb(109, 231, 88)' : 'white') + '; color: black;" title="Kegiatan ' + (n+1) + ' | ' + namaHari[hari-1] + ', ' + $tanggal + ' ' + namaBulan[bulan-1] + ' ' + tahun + '">' + (n+1) + '</span><h3>' + $keg[0] + '</h3>' + cetakTingkatan($keg[1], true) + '<br>');
               document.write('<span class="tabNomor"></span><span class="jenisDetail">Status</span>:<span class="variabelDetail">' + status[$keg[2]] + '</span><br>');
               document.write('<span class="tabNomor"></span><span class="jenisDetail">Estimasi waktu</span>:<span class="variabelDetail">' + formatWaktu($keg[3]) + '</span><br>');
               document.write('</div>');
@@ -290,9 +290,7 @@ const namaHari = ['Ahad', 'Senin', 'Selasa', 'Rabu', 'Kamis', "Jum'at", 'Sabtu',
 
               // Jika variabel 'hari' sudah melebihi jumlah hari (7),
               // maka hari akan di-reset kembali menjadi 1 (untuk memulai kembali ke hari pertama)
-              if (hari > namaHari.length){
-                  hari = 1;
-              }
+              hari > namaHari.length ? hari = 1 : hari = hari;
           }
       },
 
