@@ -223,34 +223,23 @@ const namaHari = ['Ahad', 'Senin', 'Selasa', 'Rabu', 'Kamis', "Jum'at", 'Sabtu',
       // dan nilai yang dikembalikan akan berupa angka yang mewakili satuan menit
       totalWaktuHarian = ($aksesArray) => {
           let jumlahWaktu = 0;
-
-          // Variabel 'z' mewakili jumlah kegiatan selama sehari
-          //                  jumlah kegiatan dalam sehari
-          for (let z = 0; z < KEGIATAN[$aksesArray].length; z++) {
-              jumlahWaktu += KEGIATAN[$aksesArray][z][3];
-
-              // Jika semua waktu kegiatan sudah dijumlahkan, maka nilai akan langsung dikembalikan
-              if (z == (KEGIATAN[$aksesArray].length - 1)) {
-                  return jumlahWaktu;
-              }
-          } // Akhir for
+          KEGIATAN[$aksesArray].forEach((e,i) => {
+              // Menjumlahkan total waktu kegiatan selama sehari
+              jumlahWaktu += KEGIATAN[$aksesArray][i][3];
+          });
+          return jumlahWaktu;
       },
 
       // Mengubah nilai yang dikirimkan menjadi bentuk persen
       persentaseHarian = ($aksesArray) => {
           let kegiatanSelesai = 0;
-          for (let y = 0; y < KEGIATAN[$aksesArray].length; y++) {
-              // Jika status kegiatan bernilai 1 (yang artinya SELESAI),
-              // maka nilai dari Variabel 'kegiatanSelesai' akan bertambah 1
-              if (KEGIATAN[$aksesArray][y][2] == 1) {
-                  kegiatanSelesai++;
-              }
-
-              // Jika 'y' sudah sampai akhir, maka persentase akan dihitung menggunakan rumus,
-              if (y == (KEGIATAN[$aksesArray].length - 1)) {
-                  return '<strong>' + (Math.round((kegiatanSelesai / KEGIATAN[$aksesArray].length) * 1000) / 10) + '</strong> %';
-              }
-          } // Akhir For
+          KEGIATAN[$aksesArray].forEach((e,i) => {
+              // Jika status kegiatana bernilai 1 (SELESAI), maka variabel 'kegiatanSelesai' akan bertambah 1
+              KEGIATAN[$aksesArray][i][2] === 1 ? kegiatanSelesai++ : kegiatanSelesai+=0;
+          });
+          // Angka yang dikumpulkan akan dimasukkan ke dalam rumus untuk menentukan jumlah persentase
+          // Kemudian nilai akan dikembalikan dalam bentuk string untuk ditampilkan
+          return '<strong>' + (Math.round((kegiatanSelesai / KEGIATAN[$aksesArray].length) * 1000) / 10) + '</strong> %';
       },
 
       // Mencetak semua kegiatan dalam sehari
