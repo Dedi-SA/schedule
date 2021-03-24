@@ -223,9 +223,9 @@ const namaHari = ['Ahad', 'Senin', 'Selasa', 'Rabu', 'Kamis', "Jum'at", 'Sabtu',
       // dan nilai yang dikembalikan akan berupa angka yang mewakili satuan menit
       totalWaktuHarian = ($aksesArray) => {
           let jumlahWaktu = 0;
-          KEGIATAN[$aksesArray].forEach((e,i) => {
+          KEGIATAN[$aksesArray].forEach(e => {
               // Menjumlahkan total waktu kegiatan selama sehari
-              jumlahWaktu += KEGIATAN[$aksesArray][i][3];
+              jumlahWaktu += e[3];
           });
           return jumlahWaktu;
       },
@@ -233,9 +233,9 @@ const namaHari = ['Ahad', 'Senin', 'Selasa', 'Rabu', 'Kamis', "Jum'at", 'Sabtu',
       // Mengubah nilai yang dikirimkan menjadi bentuk persen
       persentaseHarian = ($aksesArray) => {
           let kegiatanSelesai = 0;
-          KEGIATAN[$aksesArray].forEach((e,i) => {
+          KEGIATAN[$aksesArray].forEach(e => {
               // Jika status kegiatana bernilai 1 (SELESAI), maka variabel 'kegiatanSelesai' akan bertambah 1
-              KEGIATAN[$aksesArray][i][2] === 1 ? kegiatanSelesai++ : kegiatanSelesai+=0;
+              e[2] === 1 ? kegiatanSelesai++ : e = e;
           });
           // Angka yang dikumpulkan akan dimasukkan ke dalam rumus untuk menentukan jumlah persentase
           // Kemudian nilai akan dikembalikan dalam bentuk string untuk ditampilkan
