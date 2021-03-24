@@ -263,9 +263,8 @@ const   namaHari = ['Ahad', 'Senin', 'Selasa', 'Rabu', 'Kamis', "Jum'at", 'Sabtu
 
             // Variabel 'z' mewakili jumlah kegiatan selama sehari
             //                  jumlah kegiatan dalam sehari
-            KEGIATAN[$aksesArray].forEach((e,i) => {
-                KEGIATAN[$aksesArray][i][3]
-                jumlahWaktu++;
+            KEGIATAN[$aksesArray].forEach(e => {
+                jumlahWaktu += e[3];
             });
             return jumlahWaktu;
         },
@@ -273,8 +272,8 @@ const   namaHari = ['Ahad', 'Senin', 'Selasa', 'Rabu', 'Kamis', "Jum'at", 'Sabtu
         // Mengubah nilai yang dikirimkan menjadi bentuk persen
         persentaseHarian = ($aksesArray) => {
             let kegiatanSelesai = 0;
-            KEGIATAN[$aksesArray].forEach((e,i) => {
-                KEGIATAN[$aksesArray][i][2] == 1 ? kegiatanSelesai++ : i = i;
+            KEGIATAN[$aksesArray].forEach(e => {
+                e[2] == 1 ? kegiatanSelesai++ : e = e;
             });
             return '<strong>' + (Math.round((kegiatanSelesai / KEGIATAN[$aksesArray].length) * 1000) / 10) + '</strong> %';
         },
