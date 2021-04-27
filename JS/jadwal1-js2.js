@@ -371,7 +371,7 @@ const   namaHari = ['Ahad', 'Senin', 'Selasa', 'Rabu', 'Kamis', "Jum'at", 'Sabtu
             // };
 
 if (cekKelengakapan()) {
-    document.title = namaBulan[bulan-1] + ' ' + tahun;
+    document.getElementsByTagName('title')[0] = namaBulan[bulan-1] + ' ' + tahun;
     let hu = document.createElement('div');
         hu.id = 'halamanUtama';
         hu.style.display = 'block';
